@@ -27,7 +27,7 @@ function navigationbar() {
     
     <div className='navigation-humburger' Style={'display:none'}>
     <a Href='/' className='navigationbar-a'> about us </a>
-        <a  Href='/' className='navigationbar-a'> Booking</a>
+        <Link  to='/bookinglist' className='navigationbar-a'> Booking list</Link>
         <Link  to='/addgame' className='navigationbar-a '> add game</Link>
         <Link to="/signin" className='navigationbar-a ' >Sign in </Link>
          <Link to='/signup' className='btn-design navigationbar-a humburger-btn'>Sign Up</Link>
@@ -37,7 +37,7 @@ function navigationbar() {
     
     <div className='navigationbar-button'>
         <a Href='/' className='navigationbar-a'> about us </a>
-        <a  Href='/' className='navigationbar-a'> Booking</a>
+        <Link to='/bookinglist' className='navigationbar-a'> Booking</Link>
         <Link  to='/addgame' className='navigationbar-a'> add game</Link>
         <Link to="/signin" className='navigationbar-a' >Sign in </Link>
          <Link to='/signup' className='btn-design navigationbar-a'>Sign Up</Link>
