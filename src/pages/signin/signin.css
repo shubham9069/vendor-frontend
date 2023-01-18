@@ -1,0 +1,53 @@
+.signin{
+    
+    padding : 4rem;
+    
+}
+.sign-form{
+    width : 100%;
+}
+.signin-left{
+    
+
+    border: 2px solid #e2e2e5;
+    
+    min-width: 400px;
+    padding: 4rem  2rem ;
+    flex-direction: column;
+   
+}
+.signin-left>p{
+font-weight: 500;
+font-size: 1rem;
+   
+}
+.signin-left>div{
+  margin: 2rem 0 1rem 0 ;
+   
+}
+.signin-icon{
+    margin : 0 0.5rem ; 
+    font-size: 2rem;
+  
+   
+}
+
+
+.signin-right{
+   
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: #474a59;
+    min-width: 400px;
+    padding: 3rem ;
+}
+.signin-label{
+    color:white !important;
+}
+
+@media screen and (max-width:800px) {
+    .signin{
+    
+        padding : 4rem;
+        flex-direction: column;
+    }
+}

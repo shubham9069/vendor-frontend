@@ -1,0 +1,36 @@
+
+
+
+.game-details-deep{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.what-they-say{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width: 80%;
+    max-width: 1000px;
+
+
+}
+.what-they-say-row{
+    display:flex;
+    justify-content:space-between;
+    width: 100%;
+    flex-wrap: none !important;
+   
+}
+.shadowCard{
+    max-width:400px;
+    padding: 1rem 2rem ;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.view-all{
+    all:unset;
+    
+}
+

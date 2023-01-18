@@ -1,0 +1,63 @@
+
+
+ 
+ .Bookinglist{
+     grid-gap:50px;
+     flex-wrap: wrap;
+     /* padding: 0 1rem ; */
+ }
+ .Bookinglist:hover{
+    cursor: pointer;
+ }
+ .Bookinglist-box{
+     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+     border-radius: 20px;
+     display: flex;
+     grid-gap:40px;
+     padding: 1rem 1rem ;
+     flex:0 0 300px
+    
+ }
+ .Bookinglist-left,.Bookinglist-middle{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     min-width: 200px;
+     margin:0;
+     line-height: 33px;
+ 
+ }
+ .Bookinglist-right{
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+     align-items: flex-end;
+ }
+ .Bookinglist-middle>*{
+     margin: 0;
+     
+ }
+
+ .Bookinglist-left>img{
+     width: 150px;
+     border-radius: 20px;
+     padding :0 1rem ;
+ 
+ }
+
+ @media screen and (max-width:800px) {
+     .Bookinglist-left,.Bookinglist-middle{
+        min-width: 150px;
+     }
+    
+     
+    
+}
+@media screen and (max-width:560px) {
+    .Bookinglist-box {
+   grid-gap:10px
+    }
+    
+     
+    
+}

@@ -1,0 +1,123 @@
+
+.banner{
+    height:100vh;
+    width:100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: -92px;
+    
+}
+
+.banner:before{
+    content:"";
+    background: url("https://media.istockphoto.com/id/1387508702/photo/american-snooker-billiard-balls-on-the-pool-table.jpg?b=1&s=170667a&w=0&k=20&c=6iZlgxqXhZI73EGvGkwGCU_8TTlVFMvbRZCY5kr9Tk4=") no-repeat center;
+    background-size:cover;
+    position:absolute;
+    left: 0;top:0;
+    width: 100%;
+    height: inherit; 
+    z-index:-2
+}
+
+.banner:after{
+    content:"";
+    background-color: black;
+    position: absolute;
+    left: 0;top:0;
+    width: 100%;
+    height: inherit; 
+    background: rgb(0 0 0 / 0.5);
+    z-index: -1;
+
+}
+.banner-content{
+    --var-width:10%;
+   max-width: 700px; 
+   margin-left: calc(var(--var-width));
+
+   
+}
+.banner-content>p{
+    color: white;
+     font-weight: 500;
+     font-size: 20px;
+     margin-bottom: 1.5rem;
+     word-spacing: 5px;
+}
+.banner-content>h1{
+    color: white;
+     font-weight: 700;
+     font-size: 50px;
+     line-height: 67px;
+     word-spacing: 15px;
+}
+
+/*conatiner*/
+.bann-container{
+    display: flex;
+    grid-gap:60px;
+    justify-content: center;
+    padding:  0 3rem;
+}
+.bann-container-box{
+    flex: 1;
+   padding :1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    text-align: center;
+    border-radius: 10px ;
+    max-width: 400px;
+    
+} 
+.bann-container-box-img,.bann-container-box-text,.bann-container-box-btn,.bann-container-box-heading{
+    padding: 1rem 0;
+}
+.bann-container-box-img>img{
+    width: 70px;
+    
+}
+.bann-container-box-heading>h1{
+    font-weight: 700;
+    font-size:27px
+}
+.bann-container-box-text>p{
+    font-weight: 400;
+    font-size:18px;
+
+    line-height: 28px;
+    
+}
+.bann-container-box-btn>button{
+   
+    color: white;
+    
+}
+
+@media screen and (max-width:1000px) {
+    .bann-container{
+    grid-gap: 20px;
+    padding: 0 1rem
+    }
+}
+@media screen and (max-width:800px) {
+    .bann-container{
+   flex-direction: column;
+   align-items: center;
+    }
+
+    .banner-content{
+      
+       margin-left: 1.5rem;
+    
+       
+    }
+    .banner-content>h1{
+       font-size: 3rem;
+       
+    
+       
+    }
+}

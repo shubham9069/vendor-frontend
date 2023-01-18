@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+}
+#root{
+margin: 0;
+padding: 0;
+width: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--color-text);
+  font-family: var(--font-family);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.link-a{
+  all:unset
+}
+a:hover{
+  cursor: pointer;
+}
+ 
+.section-margin{
+  margin: 4rem 2rem ;
+}
+.btn-design{
+  padding: 0.6rem 1rem ;
+  border: none !important;
+  color:white;
+    font-size: 1.25rem;
+    border-radius: 10px;
+    background: #894dd4;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.center-div{
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content:center;
 }
+.form-input{
+  font-size: .875rem; 
+ line-height: 1.25rem;
+ font-weight: 600;
+ padding-left: 0.75rem;
+ padding-right: 0.75rem;
+ border-radius: 0.5rem;
+ border: 1px solid  #e5e7eb; 
+  
+ height: 2.5rem;
+ width:100%;
 
-.App-link {
-  color: #61dafb;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+  }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-input:focus {
+  outline: none;
+  border:none;
+  border-radius: 0 !important;
+  border-bottom: 1px solid black; 
+}
+.text-area{
+  font-size: .875rem; 
+  line-height: 1.25rem;
+  font-weight: 600;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid  #e5e7eb; 
+   
+  height: 10rem;
+  width:100%;
+
+}
+.form-btn{
+  width: 100%;
+  padding: 0.6rem 1rem ;
+  border: none !important;
+  color:white;
+  font-size: 1.25rem;
+  border-radius: 10px;
+  background: #894dd4;
+
 }

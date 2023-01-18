@@ -1,0 +1,76 @@
+.navigationbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:1rem 4rem;
+    background-color: rgb(0 0 0/0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    
+     
+    
+}
+.navigationbar-logo{
+    width: 130px;
+    
+}
+.navigationbar-logo>img{
+   
+    width: 100%;
+}
+.navigationbar-a{
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    color:white;
+    margin: 0 1rem ;
+    text-transform:capitalize; ;
+    
+}
+.navigationbar-button>a:hover{
+   color:white;
+    
+}
+
+.humburger{
+    display:none;
+    color:white;
+    font-size: 2rem;
+}
+@media screen and (max-width:800px) {
+    .navigationbar-button{
+        display: none;
+    }
+    .humburger{
+        display: inline !important
+    }
+    .navigation-humburger{
+        
+        flex-direction: column !important;
+        position: absolute !important;
+        top: 80px !important;
+        padding: 1rem;
+        right: 0;
+        background: #000000d4;
+        line-height: 33px;
+        border-radius: 25px;
+        
+    
+    }
+    .humburger-btn{
+        margin: 1rem 0 !important;
+        padding: 0 0.5rem !important;
+        text-align: center
+
+    }
+}
+
+@media screen and (min-width:800px){
+    .navigation-humburger{
+        
+display: none !important;
+        
+    
+    }
+}

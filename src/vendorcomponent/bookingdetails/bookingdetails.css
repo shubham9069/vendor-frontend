@@ -1,0 +1,121 @@
+h1,h3,h4,p{
+    
+}
+
+.bookingdetails-container{
+      box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+    /* background-color: #474a59; */
+    padding: 2rem 3rem ;
+    width: 70%;
+    max-width: 900px;
+    position: relative;
+    border-radius: 20px !important;
+    color: white;
+  
+}
+.bookingdetails-container::before{
+    content :'';
+    background: url("https://cdn.dribbble.com/users/788099/screenshots/4602132/media/50930f80d5e937170376c11b994d44ec.png?compress=1&resize=400x300&vertical=top") no-repeat center  ;
+    background-size: cover;
+    filter: blur(2px);
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    border-radius: 20px !important;
+   
+
+  
+}
+.bookingdetails-container::after{
+    content :'';
+    background-color: rgb(0 0 0/0.7);
+    background-size: cover;
+   
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    border-radius: 20px !important;
+   
+
+  
+}
+.bookingdetails-container>h1{
+     text-align: center;
+
+
+}
+.bookingdetails-box>h4{
+font-weight: 500;
+text-transform: capitalize;
+}
+.bookingdetails-box>p{
+    color: #c7c6c6 !important;
+    font-weight: 500;
+
+}
+
+.bookingdetails-box-top{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    padding :0.5rem 1rem ; 
+    width: 350px;
+    margin: 0 auto;
+    background: #3c3c3ca6
+    
+    
+}
+.bookingdetails-box-top>div{
+   height: 100%;width: 100%;
+    
+}
+.bookingdetails-box-top>h4{
+    text-align: center;
+   margin-bottom: 1rem;
+   font-weight: 500;
+   
+}
+.bookingdetails-box-top>p{
+    font-weight: 500;
+    color: #c7c6c6 !important;  
+}
+
+.bookingdetails-box-middle{
+    border-bottom: 4px solid #2f2f2fa6;
+    padding: 1rem 0rem;
+    
+}
+.bookingdetails-box-middle>div{
+    display: flex;
+    grid-gap:40px;
+    margin:1rem
+    
+    
+}
+.bookingdetails-box-middle>div>div>p{
+   margin: 0 !important;
+    
+}
+.bookingdetails-box-bottom{
+    padding: 1rem 0rem;
+}
+.bookingdetails-box-bottom>div{
+    margin: 1rem
+}
+
+@media screen and (max-width:800px){
+    .bookingdetails-container{
+        width: fit-content;
+  
+  }
+}
+@media screen and (max-width:560px){
+    .bookingdetails-container{
+      padding :1rem 
+    
+  }
+}
