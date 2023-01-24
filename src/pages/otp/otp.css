@@ -1,0 +1,54 @@
+.otp{
+    
+    padding : 4rem;
+    
+}
+.sign-form{
+    width : 100%;
+}
+.otp-left{
+    
+    border: 2px solid #e2e2e5;
+    min-width: 400px;
+    max-width: 400px;
+    padding: 4rem  2rem ;
+    flex-direction: column;
+   
+}
+.otp-left>p{
+    font-weight: 400;
+    font-size: 1rem;
+    color: #8b8b8bfa;
+    margin: 1rem 0;
+   
+}
+.otp-left>div{
+  margin: 2rem 0 1rem 0 ;
+   
+}
+.otp-icon{
+    margin : 0 0.5rem ; 
+    font-size: 2rem;
+  
+   
+}
+
+
+.otp-right{
+   
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: #474a59;
+    min-width: 400px;
+    padding: 3rem ;
+}
+.otp-label{
+    color:white !important;
+}
+
+@media screen and (max-width:800px) {
+    .otp{
+    
+        padding : 4rem;
+        flex-direction: column;
+    }
+}

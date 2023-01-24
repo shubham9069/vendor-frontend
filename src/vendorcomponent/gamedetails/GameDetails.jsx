@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useContext, useEffect} from 'react'
 import './gamedetails.css'
 import { Dayjs } from 'dayjs';
 import TextField from '@mui/material/TextField';
@@ -7,9 +7,34 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { useParams } from 'react-router-dom';
+import Toast from '../../Toast'
+import axios from '../../axios';
+import { AuthContext } from '../../AuthProvider';
+import Form from 'react-bootstrap/Form';
 
 const GameDetails = () => {
+    const {userToken} = useContext(AuthContext);
+    const {game_id}=useParams()
+    const [gamedetails,setgamedetails] = useState({})
+    const [getuser,setGetuser] = useState([]);
+    const [Booking,setBooking] = useState({table_id:"",info:"",instructor_name:""});
+    const [player1,setPlayer1] = useState("")
+    const [date,setdate] = useState("")
+    const [player2,setPlayer2] = useState("")
+    const [player3,setPlayer3] = useState("")
+    const [player4,setPlayer4] = useState("")
+    
+    
     const [value,setValue] = useState("")
+
+    const handleChange = (e) => {
+       
+        const name = e.target.name;
+        const value  = e.target.value;
+
+        setBooking({...Booking,[name]:value})
+    }
 
   const checkRating = (rating) => {
     let width = rating * 20
@@ -43,6 +68,107 @@ const GameDetails = () => {
     return content
 }
 
+const game_details =async () => {
+
+    try{
+        const response= await axios({
+          method: "get",
+         url:`/get_game?game_id=${game_id}`,
+         
+          headers: {
+            'Authorization': `Bearer ${userToken}`
+            
+          },
+         })
+         
+         if(response.status===200){
+          const data = response.data;
+          setgamedetails(data?.game)
+        //   Toast(data.message,response.status)
+         }
+       }
+       catch(err){
+        const error = err.response.data
+        Toast(error.message);
+        
+  
+  
+       }
+}
+const getuser_details =async () => {
+
+    try{
+        const response= await axios({
+          method: "get",
+         url:'/get_users',
+         
+          headers: {
+            'Authorization': `Bearer ${userToken}`
+            
+          },
+         })
+         
+         if(response.status===200){
+          const data = response.data;
+          setGetuser(data.users)
+        //   Toast(data.message,response.status)
+         }
+       }
+       catch(err){
+        const error = err.response.data
+        Toast(error.message);
+        
+  
+  
+       }
+}
+
+useEffect(() =>{
+
+game_details()
+getuser_details()
+
+},[])
+
+const Booking_complete=async(e)=>{
+    e.preventDefault();
+
+    const {table_id,info,instructor_name}  = Booking; 
+
+    if(!table_id || !instructor_name || !date) return Toast("plz filled ")
+    if(!player1 && !player2 && !player3 && !player4) return Toast("one play is mandatory ") 
+    var players=(player1+player2+player3+player4).split("")
+    var players_id=players.toString()
+
+    try{
+        const response= await axios({
+          method: "post",
+         url:'/add_match',
+         data:{
+            game_id,table_id,info,instructor_name,players_id,date
+         },
+         headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${userToken}`
+            
+          },    
+         })
+         
+         if(response.status===200){
+          const data = response.data;
+          Toast(data.message,response.status)
+         }
+       }
+       catch(err){
+        const error = err.response.data
+        Toast(error.message);
+        
+  
+  
+       }
+
+}
+
   return (
     <>
         <div className='container section-margin'>
@@ -58,7 +184,7 @@ const GameDetails = () => {
         <div class="img-big-wrap img-thumbnail" style={{ border: 'none'}}>
 
             <a data-fslightbox="mygalley" data-type="image" href="images/items/detail1/big.webp">
-                <img style={{ height: "250px", width: "250px", borderRadius: "2rem"}} src="https://media.istockphoto.com/id/1292610462/photo/colorful-billiard-balls-on-a-green-billiard-table.jpg?s=612x612&w=0&k=20&c=zu6IuiNUsnDnuwiCNmG_3H0RjOENJyD6M3MYDIDPPPY=" />
+                <img style={{ height: "250px", width: "250px", borderRadius: "2rem"}} src={gamedetails.images===undefined?null:gamedetails.images[0]} />
             </a>
 
         </div>
@@ -67,10 +193,11 @@ const GameDetails = () => {
         <div className='row' style={{ marginTop: 15 }}>
           
                 <div className='col-md-4'  style={{ display: 'flex', flexDirection: 'row',gridGap:'20px',width: '100%', justifyContent: 'flex-start', alignItems: 'center', }}>
-                   <img src="https://media.istockphoto.com/id/1292610462/photo/colorful-billiard-balls-on-a-green-billiard-table.jpg?s=612x612&w=0&k=20&c=zu6IuiNUsnDnuwiCNmG_3H0RjOENJyD6M3MYDIDPPPY="  style={{ width: '50px', objectFit: 'contain', cursor: 'pointer', height: "70px",  }}></img>
-                    <img src="https://media.istockphoto.com/id/1292610462/photo/colorful-billiard-balls-on-a-green-billiard-table.jpg?s=612x612&w=0&k=20&c=zu6IuiNUsnDnuwiCNmG_3H0RjOENJyD6M3MYDIDPPPY="  style={{ width: '50px', objectFit: 'contain', cursor: 'pointer', height: "70px",  }}></img>
-                    <img src="https://media.istockphoto.com/id/1292610462/photo/colorful-billiard-balls-on-a-green-billiard-table.jpg?s=612x612&w=0&k=20&c=zu6IuiNUsnDnuwiCNmG_3H0RjOENJyD6M3MYDIDPPPY="  style={{ width: '50px', objectFit: 'contain', cursor: 'pointer', height: "70px",  }}></img>
-
+                {gamedetails?.images?.map((element)=>{
+                    return <img src={element}  style={{ width: '50px', objectFit: 'contain', cursor: 'pointer', height: "70px",  }}></img>
+                })}
+                   
+                  
                 </div>
             
 
@@ -167,14 +294,14 @@ const GameDetails = () => {
 
 
        
-            <h3  >Soonker</h3>
+            <h3  >{gamedetails.name}</h3>
        
         <div style={{ marginBottom: 5 }}>
             {getStars(4)} (115)
         </div>
    
         {/* {pricee[selectedTab].desc.map((item, index) => */}
-        <span style={{ fontSize: 16, color: "#000" }} > ₹445 
+        <span style={{ fontSize: 16, color: "#000" }} > ₹{gamedetails.price}
         
         </span>
         {/* )} */}
@@ -188,7 +315,7 @@ const GameDetails = () => {
         <h6>Desription</h6>
         <div style={{ display: 'flex' }}>
                 <div className='karateWrapper' >
-                Hello, world! Open the page in your browser of choice to see your Bootstrapped page. Now you can start building with Bootstrap by creating your own layout, adding dozens of components, and utilizing our official examples.
+                {gamedetails?.description}
                 </div>
 
             
@@ -207,7 +334,7 @@ const GameDetails = () => {
   
         <hr style={{ backgroundColor: '#ccc', margin: '5px 0px 15px 0' }}></hr>
 
-            <a style={{ marginTop: "10px",width:'fit-content'}} className='btn-design link-a' data-bs-toggle="modal" data-bs-target="#exampleModalslot" >New Slot</a>
+            <a style={{ marginTop: "10px",width:'fit-content'}} className='btn-design link-a' data-bs-toggle="modal" data-bs-target="#exampleModal" >booking</a>
 
         <div style={{ margin: '10px 0', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
             
@@ -223,7 +350,7 @@ const GameDetails = () => {
                 <div className='shadowCard rowAlign' style={{ margin: '20px 0', width: 250, }}>
                 <i class="bi bi-award" style={{ marginRight: 15, height: 30, objectFit: 'contain' }}></i>
                     <div className='columnAlign'>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
       <TimePicker
       style={'zIndex:9999999 !important'}
     label="Start time "
@@ -233,7 +360,7 @@ const GameDetails = () => {
     // }}
     renderInput={(params) => <TextField {...params} />}
   />
-</LocalizationProvider>
+</LocalizationProvider> */}
                         <span>Started Time Of Slot  </span>
                     </div>
                 </div>
@@ -242,7 +369,7 @@ const GameDetails = () => {
                 <div className='shadowCard rowAlign' style={{ margin: '20px 0', width: 250, }}>
                 <i class="bi bi-wind" style={{ marginRight: 15, height: 30, objectFit: 'contain' }} ></i> 
                     <div className='columnAlign'>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
       <TimePicker
       style={'zIndex:9999999 !important'}
     label="end time "
@@ -252,7 +379,7 @@ const GameDetails = () => {
     // }}
     renderInput={(params) => <TextField {...params} />}
   />
-</LocalizationProvider>
+</LocalizationProvider> */}
                         <span>End Time Of Slot</span>
                     </div>
                 </div>
@@ -261,7 +388,9 @@ const GameDetails = () => {
                 <div className='shadowCard rowAlign' style={{ margin: '20px 0', width: 250, }}>
                 <i class="bi bi-egg-fried" style={{ marginRight: 15, height: 30, objectFit: 'contain' }}></i> 
                     <div className='columnAlign'>
-                    <Slider
+
+
+                    {/* <Slider
                      aria-label="Temperature"
                      defaultValue={1500}
                     //   getAriaValueText={valuetext}
@@ -271,7 +400,7 @@ const GameDetails = () => {
                     min={500}
                     max={2500}
                     color="secondary"
-                    />
+                    /> */}
                         <span>Price Of The Slot </span>
                     </div>
                 </div>
@@ -355,6 +484,86 @@ const GameDetails = () => {
 
 
 {/* modal */}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style={{ maxWidth: '800px'}}>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Booking</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <Form className="addtogame-form ">
+        <div className="modal-input">
+      <Form.Group className="mb-3" controlId="formBasicName">
+        <Form.Label className="addtogame-label">Player 1</Form.Label>
+        <Form.Select aria-label="Default select example" style={{maxWidth:'350px'}} value={player1} onChange={(e)=>setPlayer1(e.target.value)}>
+      <option selected >Player no 1</option>
+      {getuser.map((element=>{
+        return <option value={element.id}>{element.name}</option>
+      }))}
+      
+    </Form.Select>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicName">
+        <Form.Label className="addtogame-label">Player 2</Form.Label>
+        <Form.Select aria-label="Default select example" style={{maxWidth:'350px'}}  value={player2} onChange={(e)=>setPlayer2(e.target.value)}>
+      <option selected>Player no 2</option>
+      {getuser.map((element=>{
+        return <option value={element.id}>{element.name}</option>
+      }))}
+      
+    </Form.Select>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicName">
+        <Form.Label className="addtogame-label">Player 3</Form.Label>
+        <Form.Select aria-label="Default select example" style={{maxWidth:'350px'}}  value={player3} onChange={(e)=>setPlayer3(e.target.value)}>
+      <option selected >Player no 3</option>
+      {getuser.map((element=>{
+        return <option value={element.id}>{element.name}</option>
+      }))}
+      
+    </Form.Select>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicName">
+        <Form.Label className="addtogame-label">Player 4</Form.Label>
+        <Form.Select aria-label="Default select example" style={{maxWidth:'350px'}}  value={player4} onChange={(e)=>setPlayer4(e.target.value)}>
+      <option selected >Player no 4</option>
+      {getuser.map((element=>{
+        return <option value={element.id}>{element.name}</option>
+      }))}
+      
+    </Form.Select>
+      </Form.Group>
+      </div>
+        
+      
+      <Form.Group className="mb-3" controlId="formBasicName">
+        <Form.Label className="addtogame-label">Staring Time</Form.Label>
+        <input type="datetime-local" id="meeting-time"
+       name="meeting-time" value={date} onChange={(e)=>setdate(e.target.value)}
+       min="" max=""></input>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicName">
+        <Form.Label className="addtogame-label">Hub no </Form.Label>
+        <Form.Control type="text" placeholder="hub no " name="table_id" value={Booking.table_id} onChange={handleChange}/>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicName">
+        <Form.Label className="addtogame-label">Instructor Name</Form.Label>
+        <Form.Control type="text" placeholder="Name" name="instructor_name" value={Booking.instructor_name} onChange={handleChange}/>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+        <Form.Label>Desription</Form.Label>
+        <Form.Control as="textarea" rows={3} name="info" value={Booking.info} onChange={handleChange}/>
+      </Form.Group>
+      <button   className='form-btn' onClick={Booking_complete}  >
+        book now 
+      </button>
+    
+      </Form>
+     </div>
+    </div>
+  </div>
+</div>
 
 
     </>

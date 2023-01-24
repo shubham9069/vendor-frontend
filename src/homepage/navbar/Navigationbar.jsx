@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './navbar.css'
 import { Link } from 'react-router-dom'
 import { Button } from 'bootstrap'
+import { Logout } from '../../pages/Exportfiles'
+import Form from 'react-bootstrap/Form';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function navigationbar() {
+const Navigationbar=()=> {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const logout =Logout() 
   const showhide=()=>{
     var nav = document.getElementsByClassName('navigation-humburger')[0].style;
     
@@ -16,7 +22,15 @@ function navigationbar() {
 
       
   }
+
+
+  const add_new_user=()=>{
+
+  }
   return (
+   
+  
+
     <div className='navigationbar '>
     <Link to="/" className='navigationbar-logo link-a'>
     <h4 Style={'color:white !important ; zIndex:10'}>LOGO</h4>
@@ -26,7 +40,8 @@ function navigationbar() {
 
     
     <div className='navigation-humburger' Style={'display:none'}>
-    <a Href='/' className='navigationbar-a'> about us </a>
+   
+    <a onClick={()=>logout()} className='navigationbar-a'> about us </a>
         <Link  to='/bookinglist' className='navigationbar-a'> Booking list</Link>
         <Link  to='/addgame' className='navigationbar-a '> add game</Link>
         <Link to="/signin" className='navigationbar-a ' >Sign in </Link>
@@ -36,15 +51,18 @@ function navigationbar() {
     
     
     <div className='navigationbar-button'>
-        <a Href='/' className='navigationbar-a'> about us </a>
+        <a onClick={()=>logout()} className='navigationbar-a'> about us </a>
         <Link to='/bookinglist' className='navigationbar-a'> Booking</Link>
         <Link  to='/addgame' className='navigationbar-a'> add game</Link>
         <Link to="/signin" className='navigationbar-a' >Sign in </Link>
          <Link to='/signup' className='btn-design navigationbar-a'>Sign Up</Link>
     </div>
-        
+    
     </div>
+
+    
+    
   )
 }
 
-export default navigationbar
+export default Navigationbar

@@ -1,42 +1,81 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './bookinglist.css'
 import { Link } from 'react-router-dom'
+import Toast from '../../Toast'
+import axios from '../../axios'
+import { AuthContext } from '../../AuthProvider'
+import { useEffect } from 'react'
 
 const BookingList = () => {
-    const [bookinglist,setbookin] = useState([0,1,2,3,4,5,6,7,8,9,77])
+  const {userToken}=useContext(AuthContext)
+    const [bookinglist,setbookinglist] = useState([])
+
+
+  const get_bookinglist = async() =>{
+
+    try{
+      const response= await axios({
+        method: "get",
+       url:'/bookings',
+        headers: {
+          'Authorization': `Bearer ${userToken}`
+          
+        },
+       })
+       
+       if(response.status===200){
+        const data = response.data;
+        setbookinglist(data.bookings)
+      //   Toast(data.message,response.status)
+       }
+     }
+     catch(err){
+      const error = err.response.data
+      Toast(error.message);
+      
+
+
+     }
+    }
+
+    useEffect(()=>{
+      get_bookinglist()
+    },[])
   return (
     <>
         <div className="addgame-middle section-margin ">
   <h1> Booking List</h1>
   <div className="Bookinglist center-div">
-  {bookinglist.map((element)=>{
-    
-    return <>
-    <Link to='/bookinglist/bookingdetails' className="link-a">
-    <div to='/bookinglist/bookingdetails' className="Bookinglist-box ">
+  {bookinglist?.map((element)=>{
+    return  <Link to={'/bookinglist/bookingdetails/'+element.id} className="link-a">
+    <div  className="Bookinglist-box ">
       <div className="Bookinglist-left">
-        <img src="https://www.shutterstock.com/image-photo/red-snooker-ball-on-table-260nw-709795153.jpg"/>
+        <img src={element?.game?.images[0]}/>
       </div>
       <div className='Bookinglist-middle'>
-        <span Style={"color: #a70d0dd1;"}> Booking no #212482 </span>
-          <h3>Snooker</h3>
-          <p>Table no #22</p>
-          <p>₹ 621/h</p>
+        <span Style={"color: #a70d0dd1;"}>{"Booking no" + element.booking_id }</span>
+          <h3>{element?.game?.name}</h3>
+          <p>{element?.table_id}</p>
+          <p>{element?.game?.price}</p>
       </div>
       <div className='Bookinglist-right'>
-        <p>21 may 2022</p>
+        <p>{new Date(element.created_at).toLocaleString()}</p>
         <button className='btn-design'> Booked</button>
       </div>
     </div>
     </Link>
-    </>
   })}
+   
+   
+  
+  
    
     
   </div>
 </div>
     </>
   )
-}
+  }
+
 
 export default BookingList

@@ -33,4 +33,12 @@ align-items:center;
     all:unset;
     
 }
+.modal-input{
+    display:flex;
+    grid-gap:30px;
+    flex-wrap: wrap;
+}
+@media screen and (max-width:800px) {
+    
+}
 
