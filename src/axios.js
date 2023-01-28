@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default  axios.create({
-    baseURL: "https://shopninja.in/YVS/yvs/api/vendor/"
+    baseURL: "https://shopninja.in/anurag/yvs/api/vendor/"
 })

@@ -8,13 +8,15 @@ import { AuthContext } from '../../AuthProvider';
 
 
 const Otp = () => {
+  const navigate = useNavigate()
+  const [isLoading,setIsLoading] = useState()
   const {setUserToken,setUserData} = useContext(AuthContext)
     const[input1,setInput1]  = useState("")
     const[input2,setInput2]  = useState("")
     const[input3,setInput3]  = useState("")
     const[input4,setInput4]  = useState("")
      const location = useLocation();
-     const email = location?.state?.email
+     const email = location?.state?.email  
 
     const checkotp=async(e)=>{
         e.preventDefault()
@@ -24,6 +26,7 @@ const Otp = () => {
         const otp = input1+input2+input3+input4
         console.log(email,otp)
         try{
+          setIsLoading(true)
             const response= await axios({
               method: "post",
              url:'/verify-otp',
@@ -37,8 +40,12 @@ const Otp = () => {
              })
              
              if(response.status===200){
-              const data = response.data
-              Toast(data.message,response.status)
+              const data = response.data;
+              setUserToken(data.accessToken);
+              setUserData(data.vendor)
+              window.localStorage.setItem('userToken', JSON.stringify(data));
+              Toast(data.message,response.status);
+              navigate('/')
              }
            }
            catch(err){
@@ -46,10 +53,14 @@ const Otp = () => {
             Toast(error.message)
       
            }
+           finally{
+            setIsLoading(false)
+           }
     }
     const resendotp=async(e)=>{
         e.preventDefault()
         try{
+          setIsLoading(true)
             const response= await axios({
               method: "post",
              url:'/resend-otp',
@@ -64,8 +75,6 @@ const Otp = () => {
              
              if(response.status===200){
               const data = response.data
-              setUserToken(data.accessToken);
-              setUserData(data.vendor)
               Toast(data.message,response.status)
              }
            }
@@ -74,8 +83,13 @@ const Otp = () => {
             Toast(error.message)
       
            }
+           finally{
+            setIsLoading(false)
+           }
     }
   return (
+   isLoading? <div id="cover-spin"></div>
+   :
    <>
     <div className="otp center-div section-margin">
         <div className="otp-left center-div">

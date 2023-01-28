@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react'
 import {Navigationbar,Homepage,Footer} from './homepage/Exportfiles';
 import { Route,Routes } from 'react-router-dom';
-import {Signin,Signup,ForgetPassword, Otp, Logout } from './pages/Exportfiles'
+import {Signin,Signup,ForgetPassword, Otp, Logout, Viewmember } from './pages/Exportfiles'
 import {Addgame ,BookingList,BookingDetails, GameDetails} from './vendorcomponent/Exportfiles'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,14 +23,15 @@ const App=()=> {
    <Route path="/signup" element={<Signup/>}/>
    <Route path="/otp" element={<Otp/>}/>
    <Route path="/signin" element={<Signin/>}/>
-
-   <Route element={<Requiredlogin/>}>
    <Route path="/forgetpassword" element={<ForgetPassword/>}/>
+   <Route element={<Requiredlogin/>}>
+   
    <Route exact path="/addgame/gamedetails/:game_id" element={<GameDetails/>}/>
    <Route path="/addgame" element={<Addgame/>}/>
 
     <Route exact path="/bookinglist" element={<BookingList/>}/>
    <Route  path="/bookinglist/bookingdetails/:booking_id" element={<BookingDetails/>}/>
+   <Route  path="/viewmember" element={<Viewmember/>}/>
    
    </Route>
    </Route>

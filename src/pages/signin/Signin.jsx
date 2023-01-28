@@ -2,16 +2,20 @@ import React, { useState,useContext } from 'react'
 import "./signin.css"
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link ,useNavigate} from 'react-router-dom';
+import { Link ,useLocation,useNavigate} from 'react-router-dom';
 import Toast from "../../Toast"
 import axios from '../../axios'
 import {AuthContext} from '../../AuthProvider'
 
 const Signin = props => {
+  const location =useLocation();
+  const from = location?.state?.from?.pathname
+  
   const {setUserToken,setUserData} = useContext(AuthContext)
   const navigate  = useNavigate()
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
+  const [isLoading,setIsLoading] = useState()
 
   const login = async(e)=>{
     e.preventDefault()
@@ -19,6 +23,7 @@ const Signin = props => {
      if(!email || !password ) return Toast("please fill properly")
     
      try{
+      setIsLoading(true)
       const response= await axios({
         method: "post",
        url:'/login',
@@ -37,7 +42,7 @@ const Signin = props => {
         setUserData(data.vendor)
         window.localStorage.setItem('userToken', JSON.stringify(data));
         Toast(data.message,response.status)
-        navigate('/')
+        navigate(from || '/')
        }
      }
      catch(err){
@@ -47,8 +52,13 @@ const Signin = props => {
 
 
      }
+     finally{
+      setIsLoading(false)
+     }
   }
   return (
+    isLoading?<div id="cover-spin"></div>
+    :
     <>
         <div className="signin center-div section-margin">
         <div className="signin-left center-div">

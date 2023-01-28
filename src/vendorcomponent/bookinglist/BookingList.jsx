@@ -9,11 +9,13 @@ import { useEffect } from 'react'
 const BookingList = () => {
   const {userToken}=useContext(AuthContext)
     const [bookinglist,setbookinglist] = useState([])
+    const [isLoading,setIsLoading]=useState(true)
 
 
   const get_bookinglist = async() =>{
 
     try{
+      setIsLoading(true)
       const response= await axios({
         method: "get",
        url:'/bookings',
@@ -36,12 +38,17 @@ const BookingList = () => {
 
 
      }
+     finally{
+      setIsLoading(false)
+     }
     }
 
     useEffect(()=>{
       get_bookinglist()
     },[])
   return (
+    isLoading?<div id="cover-spin"></div>
+    :
     <>
         <div className="addgame-middle section-margin ">
   <h1> Booking List</h1>

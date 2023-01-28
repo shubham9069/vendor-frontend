@@ -1,10 +1,58 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './forgetpassword.css'
 import Form from 'react-bootstrap/Form';
+import axios from '../../axios'
+
+import Toast from '../../Toast'
+import { useNavigate } from 'react-router-dom';
+import validator from 'validator';
 
 
 const ForgetPassword = () => {
+  const navigate = useNavigate()
+  const [email,setEmail] =useState("")
+  const [isLoading,setLoading] = useState()
+
+
+  const forget_password=async(e) => {
+    e.preventDefault()
+
+    if(!email) return Toast("please fill properly")
+    if( !validator.isEmail(email)) return Toast("email is not valid")
+
+    try{
+      setLoading(true)
+      const response= await axios({
+        method: "post",
+       url:'/reset-password',
+        data:{
+          email,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          
+        },
+       })
+       
+       if(response.status===200){
+       
+        const data = response.data
+        Toast(data.message,response.status)
+        navigate('/')
+       }
+     }
+     catch(err){
+      const error = err.response.data
+      Toast(error.message)
+
+     }
+     finally{
+      setLoading(false)
+     }
+  }
   return (
+    isLoading?<div id="cover-spin"></div>
+    :
     <>
          <div className="forget center-div section-margin">
         <div className="forget-left center-div">
@@ -16,25 +64,15 @@ const ForgetPassword = () => {
         <Form classname="forget-form">
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label className="forget-label">Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
         <Form.Text className="text-muted" Style={"color:#bbbbbbd6 !important"}>
           We'll never share your email with anyone else.
         </Form.Text>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label className="forget-label">Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label className="forget-label">Confirm Password</Form.Label>
-        <Form.Control type="password" placeholder=" Confirm Password" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox"  Style={"color:#bbbbbbd6 !important"} >
-        <Form.Check type="checkbox" label="I Agree to the Terms & Condition" />
-      </Form.Group>
-      <button  type="submit"  className='form-btn'  >
-        Send otp
+     
+      <button  type="submit"  className='form-btn' onClick={forget_password} >
+        Send mail
       </button>
     </Form>
         </div>

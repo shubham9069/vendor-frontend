@@ -24,6 +24,7 @@ const GameDetails = () => {
     const [player2,setPlayer2] = useState("")
     const [player3,setPlayer3] = useState("")
     const [player4,setPlayer4] = useState("")
+    const [isLoading,setIsLoading] = useState(true)
     
     
     const [value,setValue] = useState("")
@@ -71,6 +72,7 @@ const GameDetails = () => {
 const game_details =async () => {
 
     try{
+      
         const response= await axios({
           method: "get",
          url:`/get_game?game_id=${game_id}`,
@@ -94,6 +96,7 @@ const game_details =async () => {
   
   
        }
+      
 }
 const getuser_details =async () => {
 
@@ -124,9 +127,16 @@ const getuser_details =async () => {
 }
 
 useEffect(() =>{
+try{
 
-game_details()
-getuser_details()
+  game_details()
+  getuser_details()
+}catch(err){
+
+}
+finally{
+  setIsLoading(false)
+}
 
 },[])
 
@@ -141,6 +151,7 @@ const Booking_complete=async(e)=>{
     var players_id=players.toString()
 
     try{
+      
         const response= await axios({
           method: "post",
          url:'/add_match',
@@ -166,10 +177,13 @@ const Booking_complete=async(e)=>{
   
   
        }
+       
 
 }
 
   return (
+   isLoading?<div id="cover-spin"></div>
+   :
     <>
         <div className='container section-margin'>
 

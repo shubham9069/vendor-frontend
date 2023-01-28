@@ -30,7 +30,7 @@ const PresistLogin =()=>{
     return (
         <>
         {isloading  
-            ? <div style={{height: '100vh',width: '100%', display: 'flex',alignItems: 'center',justifyContent: 'center'}}><div class="loader"></div>hello</div>
+            ? <div id="cover-spin"></div>
             :<Outlet/>
          }
     </>

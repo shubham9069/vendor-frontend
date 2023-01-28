@@ -5,6 +5,8 @@ import {Link} from "react-router-dom"
 import axios from '../../axios';
 import Toast from '../../Toast';
 import {AuthContext} from '../../AuthProvider'
+import validator from 'validator';
+import { findAllByAltText } from '@testing-library/react';
 
 
 const Addgame = () => {
@@ -15,7 +17,8 @@ const Addgame = () => {
   const [addtable,setAddtable] = useState({table_name:"",no_of_table:"",description:""}) 
   const [table_images,settable_images] = useState("")
   const [member_name,setMember_name] = useState("")
-  const [member_email,setMember_email] = useState("")
+  const [member_mobile,setMember_mobile] = useState("")
+  const [isLoading,setIsLoading] = useState(true)
   
 
   const handlechange=(e)=>{
@@ -42,7 +45,7 @@ const Addgame = () => {
     e.preventDefault();
     const {game_name,no_of_member,description,price }= addgame
 
-     if(!game_name || !no_of_member || !description) return Toast("please fill properly")
+     if(!game_name || !no_of_member ) return Toast("please fill properly")
 
      const formdata= new FormData();
      formdata.append('game_name',game_name);
@@ -55,6 +58,7 @@ const Addgame = () => {
      }
     
      try{
+      
       const response= await axios({
         method: "post",
        url:'/add_product',
@@ -79,6 +83,7 @@ const Addgame = () => {
 
 
      }
+     
   }
   const posttable = async(e)=>{
     console.log(table_images)
@@ -99,6 +104,7 @@ const Addgame = () => {
      
      
      try{
+      
       const response= await axios({
         method: "post",
        url:'/add_table',
@@ -120,17 +126,15 @@ const Addgame = () => {
      catch(err){
       const error = err.response.data
       Toast(error.message);
-      
-
-
+    
      }
+    
   }
 
   const getgame = async(e)=>{
-   
-    
-    
+  
      try{
+      setIsLoading(true)
       const response= await axios({
         method: "get",
        url:'/get_all_games',
@@ -153,16 +157,21 @@ const Addgame = () => {
 
 
      }
+     finally{
+      setIsLoading(false)
+     }
   }
   const create_member = async(e)=>{
    e.preventDefault()
-    if(!member_name || !member_email) return Toast("plz filled properly ")
+    if(!member_name || !member_mobile) return Toast("plz filled properly ")
+    if( !validator.isMobilePhone(member_mobile)) return Toast("mobile no  is not valid")
     
      try{
+      
       const response= await axios({
         method: "post",
        url:'/new_member',
-       data:{member_email,member_name},
+       data:{member_mobile,member_name},
         headers: {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${userToken}`
@@ -178,10 +187,9 @@ const Addgame = () => {
      catch(err){
       const error = err.response.data
       Toast(error.message);
-      
-
 
      }
+     
   }
 
 
@@ -190,6 +198,8 @@ const Addgame = () => {
 
   },[])
   return (
+    isLoading?<div id="cover-spin"></div>
+    :
     <>
 <div className="addgame-top center-div section-margin">
   <div className="addgame-container center-div" data-bs-toggle="modal" data-bs-target="#exampleModal" >
@@ -328,11 +338,11 @@ const Addgame = () => {
 
       <Form.Group className="mb-3" controlId="formBasicName">
         <Form.Label className="addtogame-label">Name</Form.Label>
-        <Form.Control type="text" placeholder="Name" name="game_name" value={member_name} onChange={(e)=>setMember_name(e.target.value)}/>
+        <Form.Control type="text" placeholder="Name" value={member_name} onChange={(e)=>setMember_name(e.target.value)}/>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicName">
-        <Form.Label className="addtogame-label">Email</Form.Label>
-        <Form.Control type="email" placeholder="email" name="game_name" value={member_email} onChange={(e)=>setMember_email(e.target.value)}/>
+        <Form.Label className="addtogame-label">Mobile</Form.Label>
+        <Form.Control type="number" placeholder="your Number"  value={member_mobile} onChange={(e)=>setMember_mobile(e.target.value)}/>
       </Form.Group>
       
       <button  type="submit"  className='form-btn' onClick={create_member}  >

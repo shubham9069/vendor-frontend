@@ -16,6 +16,7 @@ import validator from 'validator';
 
 const Signup = () => {
   const navigate = useNavigate()
+  const [isLoading,setIsLoading] = useState()
   const toast_msg = Toast()
   const [vendor, setVendor]= useState({
     name:"",email:"",mobile:"",password:"",confirmpassword:"",city:"",location:"",pincode:"",agreement:false
@@ -43,7 +44,9 @@ const Signup = () => {
      if( !validator.isStrongPassword(password)) return Toast("password is not strong")
      if( password !== confirmpassword ) return Toast("password and confirm is not match")
      if( agreement===false) return Toast("plz reead terms & condition ")
+
      try{
+      setIsLoading(true)
       const response= await axios({
         method: "post",
        url:'/signup',
@@ -67,8 +70,13 @@ const Signup = () => {
       Toast(error.message)
 
      }
+     finally{
+      setIsLoading(false)
+     }
   }
   return (
+    isLoading?<div id="cover-spin"></div>
+    :
     <>
     <div className="signup center-div section-margin">
         <div className="signup-left center-div">
