@@ -3,7 +3,7 @@ import React from 'react'
 import {Navigationbar,Homepage,Footer} from './homepage/Exportfiles';
 import { Route,Routes } from 'react-router-dom';
 import {Signin,Signup,ForgetPassword, Otp, Logout, Viewmember } from './pages/Exportfiles'
-import {Addgame ,BookingList,BookingDetails, GameDetails} from './vendorcomponent/Exportfiles'
+import {Addgame ,BookingList,BookingDetails, GameDetails, Canteen} from './vendorcomponent/Exportfiles'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Requiredlogin from './pages/Requiredlogin'
@@ -26,6 +26,7 @@ const App=()=> {
    <Route path="/forgetpassword" element={<ForgetPassword/>}/>
    <Route element={<Requiredlogin/>}>
    
+   <Route exact path="/canteen" element={<Canteen/>}/>
    <Route exact path="/addgame/gamedetails/:game_id" element={<GameDetails/>}/>
    <Route path="/addgame" element={<Addgame/>}/>
 

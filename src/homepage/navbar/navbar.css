@@ -38,7 +38,7 @@
     color:white;
     font-size: 2rem;
 }
-@media screen and (max-width:800px) {
+@media screen and (max-width:1000px) {
     .navigationbar-button{
         display: none;
     }
@@ -66,7 +66,7 @@
     }
 }
 
-@media screen and (min-width:800px){
+@media screen and (min-width:1000px){
     .navigation-humburger{
         
 display: none !important;

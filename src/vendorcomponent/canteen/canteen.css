@@ -1,0 +1,35 @@
+
+
+.cateen-padding{
+    padding:4rem
+}
+.main-div{
+    display:flex;
+    grid-gap:20px;
+    max-width: 2000px;
+   
+}
+@media screen and (max-width: 1000px){
+    .main-div{
+        flex-direction: column;
+       
+    }
+    .main-div>:nth-child(1){
+        margin:0 auto
+       
+    }
+    .main-div>:nth-child(3){
+       width: 100% !important;
+       
+    }
+}
+@media screen and (max-width: 800px){
+    .cateen-padding{
+        padding:2rem
+    }
+}
+@media screen and (max-width: 600px){
+    .cateen-padding{
+        padding:0
+    }
+}

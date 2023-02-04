@@ -62,8 +62,8 @@ const BookingList = () => {
       <div className='Bookinglist-middle'>
         <span Style={"color: #a70d0dd1;"}>{"Booking no" + element.booking_id }</span>
           <h3>{element?.game?.name}</h3>
-          <p>{element?.table_id}</p>
-          <p>{element?.game?.price}</p>
+          <p>Hub no : {element?.table_id}</p>
+          <p>price : {element?.game?.price}</p>
       </div>
       <div className='Bookinglist-right'>
         <p>{new Date(element.created_at).toLocaleString()}</p>

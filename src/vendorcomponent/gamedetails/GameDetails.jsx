@@ -499,7 +499,7 @@ const Booking_complete=async(e)=>{
 
 {/* modal */}
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style={{ maxWidth: '800px'}}>
+  <div class="modal-dialog" Style={' max-width: 800px !important;'}>
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add Booking</h1>
@@ -551,20 +551,23 @@ const Booking_complete=async(e)=>{
       </div>
         
       
-      <Form.Group className="mb-3" controlId="formBasicName">
+      <Form.Group className="mb-3" controlId="formBasicName" style={{maxWidth:'300px'}}>
         <Form.Label className="addtogame-label">Staring Time</Form.Label>
-        <input type="datetime-local" id="meeting-time"
+        <input type="datetime-local" id="meeting-time" className="form-control" 
        name="meeting-time" value={date} onChange={(e)=>setdate(e.target.value)}
        min="" max=""></input>
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicName">
-        <Form.Label className="addtogame-label">Hub no </Form.Label>
-        <Form.Control type="text" placeholder="hub no " name="table_id" value={Booking.table_id} onChange={handleChange}/>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicName">
+      <div className='d-flex' style={{gridGap:'70px'}}>
+     
+      <Form.Group className="mb-3" controlId="formBasicName" style={{maxWidth:'300px'}}>
         <Form.Label className="addtogame-label">Instructor Name</Form.Label>
         <Form.Control type="text" placeholder="Name" name="instructor_name" value={Booking.instructor_name} onChange={handleChange}/>
       </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicName" style={{maxWidth:'300px'}}>
+        <Form.Label className="addtogame-label">Hub no </Form.Label>
+        <Form.Control type="text" placeholder="hub no " name="table_id" value={Booking.table_id} onChange={handleChange}/>
+      </Form.Group>
+      </div>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Desription</Form.Label>
         <Form.Control as="textarea" rows={3} name="info" value={Booking.info} onChange={handleChange}/>

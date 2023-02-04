@@ -40,12 +40,12 @@ const Navigationbar=()=> {
     <div>
     <i className="bi bi-list humburger"  onClick={()=>showhide()}></i>
 
-    
+  {/* for mobile    */}
     <div className='navigation-humburger' Style={'display:none'}>
    
     {userToken?
     <>
-    <a  className='navigationbar-a '> Update Club </a>
+    <Link to='/canteen' className='navigationbar-a '> Canteen</Link>
     <Link to="/viewmember"  className='navigationbar-a '> View member</Link>
         <Link to='/bookinglist' className='navigationbar-a'> Booking</Link>
         <Link  to='/addgame' className='navigationbar-a'> add game</Link>
@@ -62,11 +62,11 @@ const Navigationbar=()=> {
     </div>
     </div>
     
-    
+    {/* for computer  */}
     <div className='navigationbar-button'>
     {userToken?
     <>
-    <a  className='navigationbar-a '> Update Club </a>
+    <Link to='/canteen' className='navigationbar-a '> Canteen</Link>
     <Link to="/viewmember"  className='navigationbar-a '> View member</Link>
         <Link to='/bookinglist' className='navigationbar-a'> Booking</Link>
         <Link  to='/addgame' className='navigationbar-a'> add game</Link>

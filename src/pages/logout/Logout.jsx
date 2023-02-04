@@ -26,11 +26,14 @@ const Logout =  () => {
          
          if(response.status===200){
           const data = response.data
-          navigate('/')
           window.localStorage.clear();
           setUserData()
           setUserToken()
+          navigate('/')
+          
           Toast(data.message,response.status)
+          
+          
           
           
          

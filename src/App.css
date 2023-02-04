@@ -126,3 +126,6 @@ to {transform:rotate(360deg);}
   -webkit-animation: spin .8s linear infinite;
   animation: spin .8s linear infinite;
 }
+.modal-dialog{
+  max-width: 800px !important;
+}
