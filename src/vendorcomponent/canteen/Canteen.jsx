@@ -193,21 +193,21 @@ const Canteen = () => {
 <Table >
 
     <thead>
-      <tr>
+      <tr className='table-text'>
         <th>#</th>
-        <th >Item Name</th>
-        <th>Purchase Price</th>
-        <th>sell Price</th>
-        <th>Quantity Left</th>
-        <th>Options</th>
+        <th >Item </th>
+        <th >Purchase </th>
+        <th >sell </th>
+        <th >Quantity </th>
+        <th >Options</th>
       </tr>
     </thead>
     <tbody>
       {inventorydata?.map((element,index)=>{
 
 
-        return  <tr>
-        <td>{index+1}</td>
+        return  <tr className='table-text'>
+        <td >{index+1}</td>
         <td>{element?.name}</td>
         <td>{element?.purchase_price}</td>
         <td>{element?.sell_price}</td>

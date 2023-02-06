@@ -9,7 +9,7 @@
 .otp-left{
     
     border: 2px solid #e2e2e5;
-    min-width: 400px;
+    min-width: 300px;
     max-width: 400px;
     padding: 4rem  2rem ;
     flex-direction: column;
@@ -38,7 +38,7 @@
    
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     background-color: #474a59;
-    min-width: 400px;
+    min-width: 300px;
     padding: 3rem ;
 }
 .otp-label{
@@ -47,8 +47,21 @@
 
 @media screen and (max-width:800px) {
     .otp{
-    
-        padding : 4rem;
+        padding: 2rem;
+        margin: 2rem;
+        
         flex-direction: column;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .otp{
+    
+        padding: 2rem 0;
+        margin: 2rem 0
+        
+    }
+    .otp-left,.otp-right{
+    padding: 1rem;
     }
 }

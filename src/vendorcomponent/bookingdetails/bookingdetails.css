@@ -11,6 +11,8 @@ h1,h3,h4,p{
     position: relative;
     border-radius: 20px !important;
     color: white;
+    height: 100%;
+    width: 100%;
   
 }
 .bookingdetails-container::before{
@@ -109,19 +111,58 @@ text-transform: capitalize;
 .bookingdetails-buttons{
     display: flex;
     grid-gap: 20px;
+    justify-content:space-between;
     
 }
 
-@media screen and (max-width:800px){
+/* @media screen and (max-width:800px){
     .bookingdetails-container{
         width: fit-content;
   
   }
-}
-@media screen and (max-width:560px){
+} */
+@media screen and (max-width:600px){
     .bookingdetails-container{
       padding :1rem ;
       
   }
+  .bookingdetails-box>h4{
+    font-size: 1rem;
+    font-weight: normal
+    }
+    .bookingdetails-box>p{
+       font-size: 0.8rem;
+    
+    }
+    .bookingdetails-box-top>h4{
+        font-size: 1.2rem;
+       
+    }
+    .bookingdetails-box-top>p{
+        font-size: 0.8rem;
+    }
+    .bookingdetails-box-top{
+       
+        width: 270px;
+       
+        
+        
+    }
+    .bookingdetails-box-middle>div>div>p{
+        font-size: 0.8rem;
+         
+     }
+   
+     .bookingdetails-buttons>div>button{
+        
+        font-size: 0.8rem !important;
+        padding: 0.5rem !important;
+        font-weight: normal;
+        min-width: 100px
+        
+        
+    }
+    
   
 }
+

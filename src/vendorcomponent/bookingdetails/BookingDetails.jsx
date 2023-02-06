@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./bookingdetails.css";
 import Form from "react-bootstrap/Form";
 import { useParams } from "react-router-dom";
@@ -7,9 +7,16 @@ import { AuthContext } from "../../AuthProvider";
 import Toast from "../../Toast";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { useReactToPrint } from 'react-to-print';
+import Bill from "./Bill";
+import BillGame from "./Bill";
+import { width } from "@mui/system";
 
 const BookingDetails = () => {
-  const { userToken } = useContext(AuthContext);
+
+  const componentRef1 = useRef()
+  const componentRef2 = useRef()
+  const { userToken,userData } = useContext(AuthContext);
   const { booking_id } = useParams();
   const [playerdetails, setPlayerDetails] = useState([]);
   const [gamedetails, setgameDetails] = useState([]);
@@ -22,7 +29,30 @@ const BookingDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [itemadd,setitemadd] = useState({product_id:"",user_id:"",quantity:""})
   const [get_all_order,setGet_All_Order] = useState([])
+  const canteenbill = useReactToPrint({
+    content: () => componentRef1.current,
+    documentTitle:"invoice"
+  });
+  const gamebill = useReactToPrint({
+    content: () => componentRef2.current,
+    // onAfterPrint:()=>match_updated,
 
+
+
+    documentTitle:"invoice"
+  });
+
+
+  const span={
+    padding:'0.3rem 1rem',
+    border:'1px solid #a3a3a3',
+    backgroundColor:'#dfdedead',
+    borderRadius:'5px',
+    fontWeight:'600',
+    
+    
+   
+}
 
   const handleitem=(e)=>{
     e.preventDefault()
@@ -292,17 +322,16 @@ const BookingDetails = () => {
                 />
               </Form.Group>
               <div className="bookingdetails-buttons">
-                <button
-                  type="submit"
-                  className="form-btn"
-                  onClick={match_updated}
-                >
-                  info updated
-                </button>
+              <div className="d-flex" style={{gridGap:'20px' }}>
+              <i class="bi bi-receipt-cutoff" style={{fontSize:'1.5rem'}} onClick={gamebill} ></i>
+              <i class="bi bi-info-square-fill" style={{fontSize:'1.5rem'}}  onClick={match_updated}></i>
+              </div>
+                <div className="d-flex justify-content-end" style={{gridGap:'20px',width:'100%'}}>
                 <button
                   type="button"
                   className="form-btn "
                   onClick={() => set_Closed_modal(true)}
+                  style={{maxWidth:'200px'}}
                 >
                   Season Closed
                 </button>
@@ -310,9 +339,11 @@ const BookingDetails = () => {
                   type="button"
                   className="form-btn "
                   onClick={() => setAddItemModal(true)}
+                  style={{maxWidth:'200px'}}
                 >
                   Add Item
                 </button>
+                </div>
               </div>
             </div>
           </div>
@@ -361,7 +392,7 @@ const BookingDetails = () => {
           <form id="sale_canteen_form">
             <input className="canteen_match_id" type="hidden" />
 
-            <table className="table table-bordered">
+            <table className="table table-bordered" >
               <thead>
                 <tr>
                   <th style={{width:'50px'}}>#</th>
@@ -399,8 +430,10 @@ const BookingDetails = () => {
                     <button
                       type="button"
                       className="btn bill_canteen_btn btn-warning"
+                      onClick={canteenbill}
+                      
                     >
-                      <i className="fa fa-print"></i> Bill
+                      <i className="fa fa-print" ></i> Bill
                     </button>
                   </th>
                 </tr>
@@ -459,7 +492,82 @@ const BookingDetails = () => {
         </Modal.Footer> */}
         
       </Modal>
+
+      {/* canteen bill  */}
+        <div style={{display: 'none'}}>
+        <invoice ref={componentRef1} >
+        <Bill gamedata={gamedetails}  />
+      </invoice>
+        </div>
+
+           {/* booking details bill  */}
+        <div style={{display: 'none'}}>
+        <invoice ref={componentRef2}>
+        <div className="section-margin">
+    <header className="center-div" style={{background:'black', color:'white',marginBottom:'2rem',flexDirection:'column'}}>
+        <h3> GAME INVOICE </h3>
+        <p>GST no #12541BHCA & TIN no #125412589 CERTIFIED </p>
+        
+    </header>
+    <div className="clubdetails d-flex justify-content-between" style={{marginBottom:'2rem'}}>
+    <div>
+        <p style={{marginBottom:'2px'}}>{userData.name}</p>
+        <p style={{marginBottom:'2px'}}>{userData.email}</p>
+        <p style={{marginBottom:'2px'}}>{userData.mobile}</p>
+        <p style={{marginBottom:'2px'}}>{new Date().toLocaleString() }</p>
+
+    </div>
+    <div>
+    <p ><span style={span}>INVOICE  #</span> : {gamedetails?.booking_id}</p>
+    <p><span style={span}>TABLE NO</span> : {gamedetails?.table_id}</p>
+    <p><span style={span}>GAME</span> : {gamedetails?.game?.name}</p>
+    
+    
+    
+
+
+    </div> 
+    </div>
+    <table className="table " style={{marginBottom:'2rem'}} >
+              <thead>
+                <tr>
+                 
+                  <th style={span}>game name </th>
+                  <th style={span}>No of member </th>
+                  <th style={span}>description</th>
+                  <th style={{width:'100px',...span}}>Price</th>
+                </tr>
+              </thead>
+              <tbody className="match_canteen_list">
+            <tr>
+               
+                  <td>{gamedetails?.game?.name}</td>
+                  <td>{gamedetails?.game?.no_of_member}</td>
+                  <td>{gamedetails?.description}</td>
+                  <td data-total="">{gamedetails?.game?.price}</td>
+                </tr>
+            
+               
+              </tbody>
+              </table>
+              <div style={{float: 'right' }}>
+                <p><span style={{fontWeight:600}}>Total</span> : <strong>&#8377;</strong> {gamedetails?.game?.price} /-</p>
+                <p><span style={{fontWeight:600}}>GST 5%</span> : <strong>&#8377;</strong> {gamedetails?.game?.price*0.05} /-</p>
+                <p><span style={{fontWeight:600}}>SERVICE CHARGE 5%</span> : <strong>&#8377;</strong> {gamedetails?.game?.price*0.05} /-</p>
+                <p><span style={span}>NET AMT</span> : <strong>&#8377;</strong> {gamedetails?.game?.price+2*(gamedetails?.game?.price*0.05)} /-</p>
+               
+              </div>
+             
+
+              
+         </div>     
+        </invoice>
+
+      
+        </div>
     </>
+
+    
   );
 };
 

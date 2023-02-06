@@ -25,6 +25,7 @@
      min-width: 200px;
      margin:0;
      line-height: 33px;
+     padding :0 1rem 0 0 ;
  
  }
  .Bookinglist-right{
@@ -39,24 +40,50 @@
  }
 
  .Bookinglist-left>img{
-     width: 150px;
+    
+     width: 110px;
      border-radius: 20px;
-     padding :0 1rem ;
+     
  
  }
 
  @media screen and (max-width:800px) {
-     .Bookinglist-left,.Bookinglist-middle{
-        min-width: 150px;
+     
+    .Bookinglist-left{
+        min-width: 100px;
+     }
+    .Bookinglist-middle{
+        min-width: 110px;
      }
     
-     
     
 }
-@media screen and (max-width:560px) {
+@media screen and (max-width:600px) {
     .Bookinglist-box {
    grid-gap:10px
     }
+    .Bookinglist-middle{
+        line-height: 25px;
+    }
+    .Bookinglist-middle>span{
+        font-size: 0.8rem;
+    }
+    .Bookinglist-middle>h3{
+        font-size: 1.2rem;
+    }
+    .Bookinglist-middle>p{
+        font-size: 0.8rem;
+    }
+    .Bookinglist-right>p{
+        font-size: 0.8rem;
+    }
+   
+    .Bookinglist-left>img{
+        width: 70px;
+        border-radius: 6px;
+     }
+    
+   
     
      
     

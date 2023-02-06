@@ -10,7 +10,7 @@
     height:700px;
     border: 2px solid #e2e2e5;
     width: 500px;
-    min-width: 400px;
+    min-width: 300px;
     padding: 4rem  2rem ;
     flex-direction: column;
    
@@ -36,7 +36,7 @@ font-size: 1rem;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 8px;
     background-color: #474a59;
     width: 500px;
-    min-width: 400px;
+    min-width: 300px;
     padding: 3rem ;
 }
 .signup-label{
@@ -71,5 +71,18 @@ font-size: 1rem;
     .signup-right{
     height:auto;
     width:80%
+    }
+}
+
+
+@media screen and (max-width:600px) {
+    .signup{
+    
+        padding: 2rem 0;
+        margin: 2rem 0
+        
+    }
+    .signup-left,.signup-right{
+    padding: 1.5rem;
     }
 }

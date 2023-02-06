@@ -87,7 +87,8 @@ input[type=number] {
   padding: 0.6rem 1rem ;
   border: none !important;
   color:white;
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
   border-radius: 10px;
   background: #894dd4;
 
@@ -128,4 +129,20 @@ to {transform:rotate(360deg);}
 }
 .modal-dialog{
   max-width: 800px !important;
+}
+
+@media screen and (max-width:600px) {
+  .section-margin{
+    margin: 2rem 1rem ;
+  }
+  .form-btn{
+   
+    font-size: 16px !important;
+    
+  
+  }
+  .btn-design{
+    font-size: 16px;
+  }
+  
 }

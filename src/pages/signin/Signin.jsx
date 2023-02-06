@@ -64,9 +64,10 @@ const Signin = props => {
         <div className="signin-left center-div">
         <h1>Sign in via </h1>
         <div>
-        <i class="bi bi-twitter signin-icon"></i>
+        {/* <i class="bi bi-twitter signin-icon"></i>
         <i class="bi bi-google signin-icon"></i>
-        <i class="bi bi-facebook signin-icon"></i>
+        <i class="bi bi-facebook signin-icon"></i> */}
+        heelo plz login your account 
         </div>
         <p> Create New Account ? <Link to="/signup" Style={"color:#894dd4"}>Sign Up</Link></p>
         </div>

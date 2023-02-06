@@ -60,7 +60,7 @@ const BookingList = () => {
         <img src={element?.game?.images[0]}/>
       </div>
       <div className='Bookinglist-middle'>
-        <span Style={"color: #a70d0dd1;"}>{"Booking no" + element.booking_id }</span>
+        <span Style={"color: #a70d0dd1;"}>{element.booking_id }</span>
           <h3>{element?.game?.name}</h3>
           <p>Hub no : {element?.table_id}</p>
           <p>price : {element?.game?.price}</p>

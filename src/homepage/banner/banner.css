@@ -117,7 +117,35 @@
     .banner-content>h1{
        font-size: 3rem;
        
+      
+       
     
        
+    }
+}
+@media screen and (max-width:600px) {
+    
+    .banner-content{
+      
+       margin-left: 1rem;
+       
+      
+    
+       
+    }
+    .banner-content>h1{
+       font-size: 2rem;
+       line-height: 50px;
+    
+       
+    }
+    .bann-container-box-img,.bann-container-box-text,.bann-container-box-btn,.bann-container-box-heading{
+        padding: 0.5rem 0;
+    }
+    .bann-container-box-text>p{
+        font-size: 16px;
+    }
+    .bann-container-box-btn>button{
+        font-size: 16px;
     }
 }

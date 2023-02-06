@@ -65,9 +65,9 @@ padding:2rem;
     margin: 0;
 }
 .gamelist-left>img{
-    width: 150px;
+    width: 110px;
     border-radius: 20px;
-    padding :0 1rem ;
+    
 
 }
 
@@ -77,17 +77,37 @@ padding:2rem;
       padding: 0;
      }
      .gamelist-left,.gamelist-middle{
-        min-width: 150px;
+        min-width: 100px;
      }
-    
      
-    
-}
-@media screen and (max-width:560px) {
-    .gamelist-box {
-   grid-gap:10px
     }
-    
-     
-    
-}
+    @media screen and (max-width:600px) {
+        .gamelist-box {
+       grid-gap:10px
+        }
+        .gamelist-middle{
+            line-height: 25px;
+        }
+        .gamelist-middle>span{
+            font-size: 0.8rem;
+        }
+        .gamelist-middle>h3{
+            font-size: 1.2rem;
+        }
+        .gamelist-middle>p{
+            font-size: 0.8rem;
+        }
+        .gamelist-right>p{
+            font-size: 0.8rem;
+        }
+       
+        .gamelist-left>img{
+            width: 70px;
+            border-radius: 6px;
+         }
+        
+       
+        
+         
+        
+    }

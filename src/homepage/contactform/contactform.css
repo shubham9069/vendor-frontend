@@ -63,8 +63,16 @@
 }
 @media screen and (max-width:560px){
     .contact_form{      
-     padding: 2rem 1rem;
+     padding: 1rem 0rem ;
+     margin: 1rem 0
 
+    }
+    .contact_form-right{
+        
+        border: none
+        
+    
+       
     }
 }
 

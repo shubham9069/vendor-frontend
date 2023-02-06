@@ -11,7 +11,7 @@
 
     border: 2px solid #e2e2e5;
     
-    min-width: 400px;
+    min-width: 300px;
     padding: 4rem  2rem ;
     flex-direction: column;
    
@@ -37,7 +37,7 @@ font-size: 1rem;
    
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     background-color: #474a59;
-    min-width: 400px;
+    min-width: 300px;
     padding: 3rem ;
 }
 .signin-label{
@@ -47,7 +47,19 @@ font-size: 1rem;
 @media screen and (max-width:800px) {
     .signin{
     
-        padding : 4rem;
+        padding: 2rem;
+        margin: 2rem;
         flex-direction: column;
+    }
+}
+@media screen and (max-width:600px) {
+    .signin{
+    
+        padding: 2rem 0;
+        margin: 2rem 0
+        
+    }
+    .signin-left,.signin-right{
+    padding: 1rem;
     }
 }

@@ -50,6 +50,7 @@
         flex-direction: column !important;
         position: absolute !important;
         top: 80px !important;
+        align-items: flex-start !important;
         padding: 1rem;
         right: 0;
         background: #000000d4;
@@ -58,10 +59,17 @@
         
     
     }
+    .navigation-humburger>.btn-design{
+      
+        padding: 0 0.5rem !important;
+        border-radius: 0 !important;
+    }
+  
     .humburger-btn{
         margin: 1rem 0 !important;
         padding: 0 0.5rem !important;
-        text-align: center
+        text-align: center;
+       
 
     }
 }
@@ -72,5 +80,10 @@
 display: none !important;
         
     
+    }
+}
+@media screen and (min-width:60px){
+    .navigationbar{
+        padding: 1rem  2rem ;
     }
 }
