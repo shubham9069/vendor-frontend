@@ -87,6 +87,26 @@ const Otp = () => {
             setIsLoading(false)
            }
     }
+    
+    function otphandler(e){
+      
+
+
+      var element = document.getElementsByClassName('form-control')
+      // console.log(element)
+      
+
+      // keycode 8 for backspace 
+      if(e.keyCode == 8 && e.target.value.length ==0 &&  e.target.previousElementSibling !==null){
+      e.target.previousElementSibling.focus()
+     
+
+      }if( e.target.value.length >=e.target.maxLength && e.target.nextElementSibling !==null){
+        e.target.nextElementSibling.focus()
+      }
+      
+
+    }
   return (
    isLoading? <div id="cover-spin"></div>
    :
@@ -104,10 +124,10 @@ const Otp = () => {
       <Form.Group className="mb-3" controlId="formBasicPassword">
         
         <div className="d-flex " style={{gridGap:'20px'}}>
-        <Form.Control type="text"  maxLength={1} style={{maxWidth:'50px'}} value={input1} onChange={(e)=>{setInput1(e.target.value)}} />
-        <Form.Control type="text"  maxLength={1} style={{maxWidth:'50px'}} value={input2} onChange={(e)=>{setInput2(e.target.value)}}/>
-        <Form.Control type="text"  maxLength={1} style={{maxWidth:'50px'}} value={input3} onChange={(e)=>{setInput3(e.target.value)}}/>
-        <Form.Control type="text"  maxLength={1} style={{maxWidth:'50px'}} value={input4} onChange={(e)=>{setInput4(e.target.value)}}/>
+        <Form.Control type="text"  maxLength={1} onKeyUp={otphandler} style={{maxWidth:'50px'}} value={input1} onChange={(e)=>{setInput1(e.target.value)}} />
+        <Form.Control type="text"  maxLength={1} onKeyUp={otphandler} style={{maxWidth:'50px'}} value={input2} onChange={(e)=>{setInput2(e.target.value)}}/>
+        <Form.Control type="text"  maxLength={1} onKeyUp={otphandler} style={{maxWidth:'50px'}} value={input3} onChange={(e)=>{setInput3(e.target.value)}}/>
+        <Form.Control type="text"  maxLength={1} onKeyUp={otphandler} style={{maxWidth:'50px'}} value={input4} onChange={(e)=>{setInput4(e.target.value)}}/>
         </div>
       </Form.Group>
       
