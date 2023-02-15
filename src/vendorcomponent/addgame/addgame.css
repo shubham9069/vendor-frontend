@@ -13,22 +13,29 @@ padding:2rem;
    
 }
 .addgame-middle{
-    border-top:2px solid #ababab;
+    /* border-top:2px solid #ababab; */
 
 }
 
-.addgame-middle>h1 {
+.toggle{
+    /* border-bottom:2px solid #ababab; */
+}
+.toggle>h1 {
     color: black;
     display: flex;
     margin: 0 auto;
-    background-color: white;
-    position: relative;
-    top: -26px;
+    background-color: #894dd4;
+    color:white;
+     border-radius:8px;
+    /* position: relative;
+    top: -26px; */
     width: fit-content;
     /* justify-content: center; */
-    padding: 0 3rem;
+    padding: 1rem 3rem;
     margin-bottom: 2rem;
+    font-size: 24px
     ;font-weight: 300;
+    cursor: pointer;
     
 }
 
@@ -105,9 +112,5 @@ padding:2rem;
             width: 70px;
             border-radius: 6px;
          }
-        
-       
-        
-         
-        
+    
     }

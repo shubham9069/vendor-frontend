@@ -7,7 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { useParams } from 'react-router-dom';
+import { useParams,useLocation } from 'react-router-dom';
 import Toast from '../../Toast'
 import axios from '../../axios';
 import { AuthContext } from '../../AuthProvider';
@@ -15,7 +15,10 @@ import Form from 'react-bootstrap/Form';
 
 const GameDetails = () => {
     const {userToken} = useContext(AuthContext);
-    const {game_id}=useParams()
+    const {game_id}=useParams();
+    const locate = useLocation();
+    const gameType = locate?.state?.type
+
     const [gamedetails,setgamedetails] = useState({})
     const [getuser,setGetuser] = useState([]);
     const [Booking,setBooking] = useState({table_id:"",info:"",instructor_name:""});
@@ -98,6 +101,35 @@ const game_details =async () => {
        }
       
 }
+const gettable_details =async () => {
+
+    try{
+      
+        const response= await axios({
+          method: "get",
+         url:`/get_table?table_id=${game_id}`,
+         
+          headers: {
+            'Authorization': `Bearer ${userToken}`
+            
+          },
+         })
+         
+         if(response.status===200){
+          const data = response.data;
+          setgamedetails(data?.table)
+        //   Toast(data.message,response.status)
+         }
+       }
+       catch(err){
+        const error = err.response.data
+        Toast(error.message);
+        
+  
+  
+       }
+      
+}
 const getuser_details =async () => {
 
     try{
@@ -128,8 +160,13 @@ const getuser_details =async () => {
 
 useEffect(() =>{
 try{
-
-  game_details()
+if(gameType == "table"){
+gettable_details();
+}
+else{
+  game_details();
+}
+  
   getuser_details()
 }catch(err){
 
@@ -198,7 +235,7 @@ const Booking_complete=async(e)=>{
         <div class="img-big-wrap img-thumbnail" style={{ border: 'none'}}>
 
             <a data-fslightbox="mygalley" data-type="image" href="images/items/detail1/big.webp">
-                <img style={{ height: "250px", width: "250px", borderRadius: "2rem"}} src={gamedetails.images===undefined?null:gamedetails.images[0]} />
+                <img style={{ height: "250px", width: "250px", borderRadius: "2rem"}} src={!gamedetails?.images?.length?null:gamedetails.images[0]} />
             </a>
 
         </div>
@@ -308,14 +345,14 @@ const Booking_complete=async(e)=>{
 
 
        
-            <h3  >{gamedetails.name}</h3>
+            <h3  >{gamedetails?.name}</h3>
        
         <div style={{ marginBottom: 5 }}>
             {getStars(4)} (115)
         </div>
    
         {/* {pricee[selectedTab].desc.map((item, index) => */}
-        <span style={{ fontSize: 16, color: "#000" }} > ₹{gamedetails.price}
+        <span style={{ fontSize: 16, color: "#000" }} > ₹{gamedetails?.price}
         
         </span>
         {/* )} */}

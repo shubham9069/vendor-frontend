@@ -18,7 +18,7 @@ const App=()=> {
   
    <Routes> 
    <Route element={<PresistLogin/>}>
-   <Route exact path='/' element={<Homepage/>}/>
+   <Route  path='/' element={<Homepage/>}/>
   
    <Route path="/signup" element={<Signup/>}/>
    <Route path="/otp" element={<Otp/>}/>
@@ -26,11 +26,11 @@ const App=()=> {
    <Route path="/forgetpassword" element={<ForgetPassword/>}/>
    <Route element={<Requiredlogin/>}>
    
-   <Route exact path="/canteen" element={<Canteen/>}/>
-   <Route exact path="/addgame/gamedetails/:game_id" element={<GameDetails/>}/>
-   <Route path="/addgame" element={<Addgame/>}/>
+   <Route  path="/canteen" element={<Canteen/>}/>
+   <Route  path="/addgame" element={<Addgame/>}/>
+   <Route  path="/addgame/gamedetails/:game_id" element={<GameDetails/>}/>
 
-    <Route exact path="/bookinglist" element={<BookingList/>}/>
+    <Route  path="/bookinglist" element={<BookingList/>}/>
    <Route  path="/bookinglist/bookingdetails/:booking_id" element={<BookingDetails/>}/>
    <Route  path="/viewmember" element={<Viewmember/>}/>
    

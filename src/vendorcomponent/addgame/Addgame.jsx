@@ -12,6 +12,7 @@ import { findAllByAltText } from '@testing-library/react';
 const Addgame = () => {
   const { userToken} = useContext(AuthContext)
   const [gamelist,setGamelist] = useState([])
+  const [tablelist,setTablelist] = useState([])
   const [addgame,setAddGame] = useState({game_name:"",no_of_member:"",description:"",price:"" })
   const [images,setimages]=useState("")
   const [addtable,setAddtable] = useState({table_name:"",no_of_table:"",description:""}) 
@@ -19,6 +20,7 @@ const Addgame = () => {
   const [member_name,setMember_name] = useState("")
   const [member_mobile,setMember_mobile] = useState("")
   const [isLoading,setIsLoading] = useState(true)
+  const [data , setData] = useState([])
   
 
   const handlechange=(e)=>{
@@ -118,7 +120,7 @@ const Addgame = () => {
        
        if(response.status===200){
         const data = response.data
-        
+        gettable()
         Toast(data.message,response.status)
        
        }
@@ -130,11 +132,23 @@ const Addgame = () => {
      }
     
   }
+  useEffect(()=>{
+   
+    (async()=>{
+   try {
+     const getable = await gettable();
+       const gegame = await getgame();
+       
+   } catch (error) 
+   {console.log(error)}
+     })();
+
+},[])
 
   const getgame = async(e)=>{
   
      try{
-      setIsLoading(true)
+      
       const response= await axios({
         method: "get",
        url:'/get_all_games',
@@ -147,6 +161,7 @@ const Addgame = () => {
        if(response.status===200){
         const data = response.data;
         setGamelist(data.games)
+        setData(data.games)
         Toast(data.message,response.status)
        }
      }
@@ -161,6 +176,36 @@ const Addgame = () => {
       setIsLoading(false)
      }
   }
+
+  const gettable = async(e)=>{
+  
+    try{
+     
+     const response= await axios({
+       method: "get",
+      url:'/get_all_tables',
+       headers: {
+         'Authorization': `Bearer ${userToken}`
+         
+       },
+      })
+      
+      if(response.status===200){
+       const data = response.data;
+       setTablelist(data.tables)
+       setData(data?.tables)
+       Toast(data.message,response.status)
+      }
+    }
+    catch(err){
+     const error = err.response.data
+     Toast(error.message);
+     
+
+
+    }
+   
+ }
   const create_member = async(e)=>{
    e.preventDefault()
     if(!member_name || !member_mobile) return Toast("plz filled properly ")
@@ -192,11 +237,8 @@ const Addgame = () => {
      
   }
 
+console.log(gamelist)
 
-  useEffect(()=>{
-    getgame()
-
-  },[])
   return (
     isLoading?<div id="cover-spin"></div>
     :
@@ -217,12 +259,15 @@ const Addgame = () => {
   </div>
 </div>
 <div className="addgame-middle section-margin ">
-  <h1> Game List</h1>
+<div className="toggle d-flex justify-content-between" >
+  <h1 onClick={() => setData(gamelist)}> Game List</h1>
+  <h1 onClick={() => setData(tablelist)}>Table List</h1>
+  </div>
   <div className="gamelist center-div">
-  {gamelist.map((element)=>{
+  {data.map((element)=>{
     
     return <>
-    <Link to={'/addgame/gamedetails/'+element.id } className='link-a'>
+    <Link to={'/addgame/gamedetails/'+ element.id } state={{type:element.type}} className='link-a'>
     <div  className="gamelist-box ">
       <div className="gamelist-left">
         <img src={element.images[0]} alt="no image "/>
