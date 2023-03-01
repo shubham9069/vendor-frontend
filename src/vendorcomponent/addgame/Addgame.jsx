@@ -270,7 +270,7 @@ console.log(gamelist)
     <Link to={'/addgame/gamedetails/'+ element.id } state={{type:element.type}} className='link-a'>
     <div  className="gamelist-box ">
       <div className="gamelist-left">
-        <img src={element.images[0]} alt="no image "/>
+        <img src={element.images.length? element.images[0]:"/images/default.jpg"} />
       </div>
       <div className='gamelist-middle'>
         <span Style={"color: #a70d0dd1;"}> </span>

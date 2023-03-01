@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import './canteen.css'
+import '../canteen/canteen.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
@@ -10,18 +10,16 @@ import { AuthContext } from '../../AuthProvider';
 import { useContext } from 'react';
 
 
-const Canteen = () => {
+const AddExpense = () => {
   const {userToken} = useContext(AuthContext)
   const [isLoading,setIsLoading] = useState(true)
-  const [inventorydata,setInventoryData] = useState([])
-  // const [preInvdata,setPreInvdata] = useState({})
-  const [canteendata,setcanteenData] = useState({name: "",qty:"",purchase_price:"",sell_price:""})
-  const [name,setname] = useState("")
-  const [qty,setqty] = useState("")
-  const [purchase_price,setpurchase_price] = useState("")
-  const [sell_price,setsell_price] = useState("")
+  const [Expenseget,setExpenseget] = useState([])
+  const [Expensedata,setExpenseData] = useState({expense_name:"",expense_amount:"" })
+  const [expense_name,setexpense_name] = useState("")
+  const [expense_amount,setexpense_amount] = useState("")
   
-  const [inventory_id,setinventory_id] = useState({})
+  
+  const [expense_id,setexpense_id] = useState({})
   const [show, setShow] = useState(false);
   
  
@@ -31,15 +29,13 @@ const Canteen = () => {
       const name = e.target.name;
       const value = e.target.value;
 
-      setcanteenData({...canteendata,[name]:value})
+      setExpenseData({...Expensedata,[name]:value})
     }
    
     const Modal=(data)=>{
-      setname(data?.name)
-      setqty(data?.qty)
-      setsell_price(data?.sell_price)
-      setpurchase_price(data?.purchase_price)
-      setinventory_id(data?.id.toString())
+      setexpense_name(data?.expense_name)
+      setexpense_amount(data?.expense_amount)
+        setexpense_id(data?.id)
     }
   
     
@@ -49,7 +45,7 @@ const Canteen = () => {
         setIsLoading(true)
         const response= await axios({
           method: "get",
-         url:'/get_all_inventories',
+         url:'/get_expenses',
           headers: {
             'Authorization': `Bearer ${userToken}`
             
@@ -58,11 +54,12 @@ const Canteen = () => {
          
          if(response.status===200){
           const data = response.data;
-          setInventoryData(data?.inventories)
+          setExpenseget(data?.expenses)
           Toast(data.message,response.status)
          }
        }
        catch(err){
+        setExpenseget([])
         const error = err.response.data
         Toast(error.message);
         
@@ -81,16 +78,16 @@ const Canteen = () => {
 
     const Add_Inventory = async(e)=>{
       e.preventDefault()
-      const {name,qty,purchase_price,sell_price} = canteendata
-       if(!name || !sell_price ) return Toast("plz filled properly ")
+    const {expense_amount,expense_name} = Expensedata
+       if( !expense_amount || !expense_name) return Toast("plz filled properly ")
      
        
         try{
          setIsLoading(true)
          const response= await axios({
            method: "post",
-          url:'/add_inventory',
-          data:{name,qty,purchase_price,sell_price},
+          url:'/add_expense',
+          data:{expense_amount,expense_name},
            headers: {
              "Content-Type": "application/json",
              'Authorization': `Bearer ${userToken}`
@@ -105,6 +102,37 @@ const Canteen = () => {
           }
         }
         catch(err){
+            
+         const error = err.response.data
+         Toast(error.message);
+   
+        }
+        finally{setIsLoading(false)}
+        
+     }
+    const update_Inventory = async(e)=>{
+      e.preventDefault()
+        try{
+         setIsLoading(true)
+         const response= await axios({
+           method: "post",
+          url:'/edit_expense',
+          data:{expense_id,expense_amount,expense_name},
+           headers: {
+             "Content-Type": "application/json",
+             'Authorization': `Bearer ${userToken}`
+             
+           },
+          })
+          
+          if(response.status===200){
+           const data = response.data;
+           Get_Inventory()
+           setShow(false)
+           Toast(data.message,response.status)
+          }
+        }
+        catch(err){
          const error = err.response.data
          Toast(error.message);
    
@@ -114,14 +142,13 @@ const Canteen = () => {
         }
         
      }
-    const update_Inventory = async(e)=>{
+    const Delete_inventory = async(e)=>{
       e.preventDefault()
         try{
          setIsLoading(true)
          const response= await axios({
-           method: "post",
-          url:'/update_inventory',
-          data:{inventory_id,name,qty,purchase_price,sell_price},
+           method: "get",
+          url:`delete_expense?expense_id=${expense_id}`,
            headers: {
              "Content-Type": "application/json",
              'Authorization': `Bearer ${userToken}`
@@ -148,10 +175,11 @@ const Canteen = () => {
      }
   return (
     <>
+
     {isLoading && (<div id="cover-spin"></div>)}
          <div className="cateen-padding ">
     <div className='container-fluid '>
-    <h3>Inventory</h3>
+    <h3>Expenses</h3>
      <hr style={{color:"gray"}}></hr></div>
 
 
@@ -161,33 +189,20 @@ const Canteen = () => {
     <div className='main-div'>
     <div className='row ' style={{ maxWidth:'500px',maxHeight: '500px'}}>
       <Form.Group className="col-md-12" controlId="formBasicEmail" style={{marginBottom:"15px"}}>
-        <Form.Label>New item Name:*</Form.Label>
-        <Form.Control type="text"   className="form-input" name="name" value={canteendata.name} onChange={handleChange} />
+        <Form.Label>Add Expense Name </Form.Label>
+        <Form.Control type="text"   className="form-input" name="expense_name" value={Expensedata.expense_name} onChange={handleChange} />
        
       </Form.Group>
      
      
       <Form.Group className="col-md-12" controlId="formBasicPassword" style={{marginBottom:"15px"}}>
-        <Form.Label>Purchase Price:</Form.Label>
-        <Form.Control type="number" className="form-input" name="purchase_price" value={ canteendata.purchase_price} onChange={handleChange} />
+        <Form.Label>Amount</Form.Label>
+        <Form.Control type="number" className="form-input" name="expense_amount" value={Expensedata.expense_amount} onChange={handleChange} />
       </Form.Group>
 
-
-
-      <Form.Group className="col-md-12" controlId="formBasicPassword" style={{marginBottom:"15px"}}>
-        <Form.Label>Sale Price:</Form.Label>
-        <Form.Control type="number"  className="form-input" name="sell_price" value={ canteendata.sell_price} onChange={handleChange} /> 
-      </Form.Group>
-
-
-
-      <Form.Group className="col-md-12" controlId="formBasicPassword" style={{marginBottom:"15px"}}>
-        <Form.Label>Quantity:</Form.Label>
-        <Form.Control type="number"  className="form-input" name="qty" value={canteendata.qty} onChange={handleChange} />  
-      </Form.Group>
 
       <button  onClick={Add_Inventory}  className="btn-design" style={{maxWidth:'200px',margin:'2rem auto'}}>
-        Create Item
+        Add Expense
       </button>
 
       
@@ -196,30 +211,27 @@ const Canteen = () => {
 {/* <div><hr style={{color:"gray"}}></hr></div> */}
 <div class="vr" style={{marginLeft:"10px"}}></div>
 <div className='col-md-8 '>
-<h3>Inventory List</h3>
+<h3>Expenses List</h3>
 <Table >
 
     <thead>
       <tr className='table-text'>
         <th>#</th>
-        <th >Item </th>
-        <th >Purchase </th>
-        <th >sell </th>
-        <th >Quantity </th>
-        <th >Options</th>
+        <th >Expense</th>
+        <th >Date </th>
+        <th >Amount</th>
       </tr>
     </thead>
     <tbody>
-      {inventorydata?.map((element,index)=>{
+      {Expenseget?.map((element,index)=>{
 
 
         return  <tr className='table-text'>
         <td >{index+1}</td>
-        <td>{element?.name}</td>
-        <td>{element?.purchase_price}</td>
-        <td>{element?.sell_price}</td>
-        <td><button style={{border:"0.5px solid gray",padding:"3px 25px",borderRadius:"2px",backgroundColor:"white"}}>{element.qty}</button></td>
+        <td>{element?.expense_name}</td>
+        <td>{element?.expense_amount}</td>
         <td>  <Button variant="success" onClick={() =>{Modal(element)}} data-bs-toggle="modal" data-bs-target="#exampleModal" >edit</Button></td>
+        <td>  <Button variant="danger" onClick={() =>{Modal(element)}} data-bs-toggle="modal" data-bs-target="#exampleModalDelete" >Delete</Button></td>
       </tr>
       })}
      
@@ -243,27 +255,41 @@ const Canteen = () => {
       <div class="modal-body">
       <Form>
         <Form.Group className="mb-3" controlId="formBasicName">
-        <Form.Label className="addtogame-label">Name</Form.Label>
-        <Form.Control type="text" placeholder="Name" name="table_name" value={name} onChange={(e)=>setname(e.target.value)}/>
+        <Form.Label className="addtogame-label"> expense_Name</Form.Label>
+        <Form.Control type="text" placeholder="Name" name="table_name" value={expense_name} onChange={(e)=>setexpense_name(e.target.value)}/>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicName">
-        <Form.Label className="addtogame-label">quantity</Form.Label>
-        <Form.Control type="number" placeholder="Name" name="table_name" value={qty} onChange={(e)=>setqty(e.target.value)}/>
+        <Form.Label className="addtogame-label">Expense_price</Form.Label>
+        <Form.Control type="number" placeholder="Name" name="table_name"  value={expense_amount} onChange={(e)=>setexpense_amount(e.target.value)} />
       </Form.Group>
       
-      <Form.Group className="mb-3" controlId="formBasicName">
-        <Form.Label className="addtogame-label">purchase price </Form.Label>
-        <Form.Control type="number" placeholder="Name" name="table_name" value={purchase_price} onChange={(e)=>setpurchase_price(e.target.value)}/>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicName">
-        <Form.Label className="addtogame-label">sell price </Form.Label>
-        <Form.Control type="number" placeholder="Name" name="table_name" value={sell_price} onChange={(e)=>setsell_price(e.target.value)}/>
-      </Form.Group>
-      </Form>
+     </Form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onClick={update_Inventory}>update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure ?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+     expense Name : {expense_name}
+     <br></br>
+     <br></br>
+     expense Amount : {expense_amount}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">no</button>
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onClick={Delete_inventory}>Yes</button>
       </div>
     </div>
   </div>
@@ -276,4 +302,4 @@ const Canteen = () => {
   )
 }
 
-export default Canteen
+export default AddExpense

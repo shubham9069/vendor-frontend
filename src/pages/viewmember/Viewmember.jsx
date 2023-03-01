@@ -52,20 +52,20 @@ useEffect(() => {
       <table className="table">
   <thead>
     <tr>
-      <th scope="col">No</th>
-      <th scope="col">Name</th>
-      <th scope="col">email</th>
-      <th scope="col">Phone</th>
+      <th scope="col" style={{border: '1px solid #9b9797'}}>No</th>
+      <th scope="col" style={{border: '1px solid #9b9797'}}>Name</th>
+      <th scope="col" style={{border: '1px solid #9b9797'}}>email</th>
+      <th scope="col" style={{border: '1px solid #9b9797'}}>Phone</th>
     </tr>
   </thead>
   <tbody>
   {getuser.map((element,i) => {
 
     return  <tr>
-      <th scope="row">{i+1}</th>
-      <td>{element.name}</td>
-      <td>{element.email}</td>
-      <td>{element.mobile}</td>
+      <th scope="row" style={{border: '1px solid #9b9797'}}>{i+1}</th>
+      <td style={{border: '1px solid #9b9797'}}>{element.name}</td>
+      <td style={{border: '1px solid #9b9797'}}>{element.email}</td>
+      <td style={{border: '1px solid #9b9797'}}>{element.mobile}</td>
     </tr>
   })}
    

@@ -45,8 +45,20 @@ const Navigationbar=()=> {
    
     {userToken?
     <>
+    <a class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Reports
+  </button>
+  <ul class="dropdown-menu">
+    <li><Link to="/daysreport" class="dropdown-item">Days</Link></li>
+    <li><a class="dropdown-item" href="#">Weeks</a></li>
+    <li><a class="dropdown-item" href="#">Analytics</a></li>
+    <li><Link to="/viewmember"  className='dropdown-item'> View member</Link></li>
+  </ul>
+</a>
+    <Link to='/Tournament' className='navigationbar-a '> Tournament</Link>
     <Link to='/canteen' className='navigationbar-a '> Canteen</Link>
-    <Link to="/viewmember"  className='navigationbar-a '> View member</Link>
+    <Link to="/AddExpense"  className='navigationbar-a '> Add Expense </Link>
         <Link to='/bookinglist' className='navigationbar-a'> Booking</Link>
         <Link  to='/addgame' className='navigationbar-a'> add game</Link>
         <a onClick={()=>logout()} className='navigationbar-a btn-design'> logout </a>
@@ -66,8 +78,20 @@ const Navigationbar=()=> {
     <div className='navigationbar-button'>
     {userToken?
     <>
+    <a class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Reports
+  </button>
+  <ul class="dropdown-menu">
+  <li><Link to="/daysreport" class="dropdown-item">Days</Link></li>
+    <li><Link to='/weeksreport'   class="dropdown-item" >Weeks</Link></li>
+    <li><Link  to='/expense' class="dropdown-item" >Analytics</Link></li>
+    <li><Link to="/viewmember"  className='dropdown-item'> View member</Link></li>
+  </ul>
+</a>
+    <Link to='/Tournament' className='navigationbar-a '> Tournament</Link>
     <Link to='/canteen' className='navigationbar-a '> Canteen</Link>
-    <Link to="/viewmember"  className='navigationbar-a '> View member</Link>
+    <Link to="/AddExpense"  className='navigationbar-a '> Add Expense</Link>
         <Link to='/bookinglist' className='navigationbar-a'> Booking</Link>
         <Link  to='/addgame' className='navigationbar-a'> add game</Link>
         <a onClick={()=>logout()} className='navigationbar-a btn-design'> logout </a>
