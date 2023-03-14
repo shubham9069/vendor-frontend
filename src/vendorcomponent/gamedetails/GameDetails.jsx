@@ -184,7 +184,21 @@ const Booking_complete=async(e)=>{
 
     if(!table_id || !instructor_name || !date) return Toast("plz filled ")
     if(!player1 && !player2 && !player3 && !player4) return Toast("one play is mandatory ") 
-    var players=(player1+player2+player3+player4).split("")
+    var players=[]
+    if(player1){
+      players.push(player1)
+    }
+    if(player2){
+      players.push(player2)
+    }
+    if(player3){
+      players.push(player3)
+    }
+    if(player4){
+      players.push(player4)
+    }
+   
+  
     var players_id=players.toString()
 
     try{

@@ -151,7 +151,7 @@ const HandleChnage=(e)=>{
       </Form.Group>
       <Form.Group className="my-4" controlId="exampleForm.ControlInput1">
         <Form.Label style={{fontWeight:600, color:'#4a5568' ,fontSize:'20px'}}>No.Of.player</Form.Label>
-        <Form.Control type="number" aria-label="Default select example" className="sport-select" name='no_of_players'  value={Tournament_Data?.no_of_players} onChange={(e)=>e.target.value<=11 && (HandleChnage(e))}>
+        <Form.Control type="number" aria-label="Default select example" className="sport-select" name='no_of_players'  value={Tournament_Data?.no_of_players} onChange={HandleChnage}>
       
     </Form.Control>
       </Form.Group>
